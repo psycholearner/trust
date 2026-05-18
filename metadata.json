@@ -1,0 +1,7 @@
+{
+  "name": "Remix: TrustChain AI",
+  "description": "Enterprise-grade Blockchain Document Verification System powered by Gemini AI. Secure, immutable, and intelligent document lifecycle management.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}

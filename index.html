@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TrustChain AI - Secure Document Verification</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+            colors: {
+              brand: {
+                50: '#f0f9ff',
+                100: '#e0f2fe',
+                500: '#0ea5e9',
+                600: '#0284c7',
+                900: '#0c4a6e',
+              }
+            },
+            animation: {
+              fadeIn: 'fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              slideUp: 'slideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              slideDown: 'slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              slideIn: 'slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              scaleIn: 'scaleIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              float: 'float 8s ease-in-out infinite',
+              'float-delayed': 'float 8s ease-in-out 4s infinite',
+              pulseSlow: 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+              shimmer: 'shimmer 2.5s linear infinite',
+              'gradient-xy': 'gradient-xy 15s ease infinite',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0' },
+                '100%': { opacity: '1' },
+              },
+              slideUp: {
+                '0%': { opacity: '0', transform: 'translateY(40px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              slideDown: {
+                '0%': { opacity: '0', transform: 'translateY(-20px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              },
+              slideIn: {
+                '0%': { opacity: '0', transform: 'translateX(-20px)' },
+                '100%': { opacity: '1', transform: 'translateX(0)' },
+              },
+              scaleIn: {
+                '0%': { opacity: '0', transform: 'scale(0.95)' },
+                '100%': { opacity: '1', transform: 'scale(1)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-20px)' },
+              },
+              shimmer: {
+                '0%': { transform: 'translateX(-100%)' },
+                '100%': { transform: 'translateX(100%)' },
+              },
+              'gradient-xy': {
+                '0%, 100%': {
+                    'background-size': '400% 400%',
+                    'background-position': 'left center'
+                },
+                '50%': {
+                    'background-size': '200% 200%',
+                    'background-position': 'right center'
+                }
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f8fafc; /* White/Slate-50 Background */
+        color: #0f172a; /* Slate-900 Text */
+        overflow-x: hidden;
+      }
+      
+      /* Hide default cursor on desktop to show custom cursor */
+      @media (min-width: 768px) {
+        body, a, button, input, textarea, select {
+          cursor: none;
+        }
+      }
+
+      /* Glassmorphism Utilities */
+      .glass {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(226, 232, 240, 0.8); /* Slate-200 border for visibility */
+      }
+      
+      .glass-dark {
+        background: rgba(15, 23, 42, 0.9);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      }
+
+      /* Custom utility for animation delays */
+      .delay-100 { animation-delay: 100ms; }
+      .delay-200 { animation-delay: 200ms; }
+      .delay-300 { animation-delay: 300ms; }
+      .delay-500 { animation-delay: 500ms; }
+      .delay-700 { animation-delay: 700ms; }
+      
+      /* Smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://esm.sh/@google/genai@^1.39.0",
+    "recharts": "https://esm.sh/recharts@^3.7.0",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react": "https://esm.sh/react@^19.2.4",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.13.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "jsqr": "https://esm.sh/jsqr@1.4.0",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@3.8.2",
+    "qrcode": "https://esm.sh/qrcode@1.5.3"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
